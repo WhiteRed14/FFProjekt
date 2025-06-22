@@ -13,6 +13,37 @@ namespace CarRepairApi.Controllers
         public CarRepairController(CarRepairContext context)
         {
             _context = context;
+            /*if (!_context.Users.Any())
+            {
+                _context.Users.AddRange(
+                    [
+                    new User {
+                        Name = "Jan",
+                        Surname = "Kowalski",
+                        Email = "jan.kowalski@example.com",
+                        Role = "Client",
+                        Password = "jkpass1"},
+                    new User {
+                        Name = "Anna",
+                        Surname = "Nowak",
+                        Email = "anna.nowak@example.com",
+                        Role = "Client",
+                        Password = "anpass1"},
+                    new User {
+                        Name = "Piotr",
+                        Surname = "Wiśniewski",
+                        Email = "piotr.wisniewski@example.com",
+                        Role = "Client",
+                        Password = "pwpass1"},
+                    new User {
+                        Name = "Maria",
+                        Surname = "Wójcik",
+                        Email = "maria.wojcik@example.com",
+                        Role = "Client",
+                        Password = "mwpas1"},
+                ]);
+                _context.SaveChanges();
+            }
             if (!_context.CarRepairs.Any())
             {
                 _context.CarRepairs.AddRange(
@@ -22,14 +53,14 @@ namespace CarRepairApi.Controllers
                         Make = "VolksWagen",
                         Model = "Golf",
                         Note = "Wycinanie kata",
-                        Owner = "Seba z Osiedla" },
+                        OwnerId = 4 },
 
                     new CarRepair {
                         PlateNumber = "KR1234AB",
                         Make = "Toyota",
                         Model = "Corolla",
                         Note = "Wymiana oleju silnikowego i filtra",
-                        Owner = "Jan Kowalski",
+                        OwnerId = 5,
                         StartDate = new DateOnly(2025, 3, 10),
                         EndDate = new DateOnly(2025, 3, 11)},
 
@@ -38,7 +69,7 @@ namespace CarRepairApi.Controllers
                         Make = "Audi",
                         Model = "A3",
                         Note = "Naprawa układu hamulcowego",
-                        Owner = "Anna Nowak",
+                        OwnerId = 6,
                         StartDate = new DateOnly(2025, 4, 2),
                         EndDate = new DateOnly(2025, 4, 4)},
 
@@ -47,12 +78,12 @@ namespace CarRepairApi.Controllers
                         Make = "Renault",
                         Model = "Megane",
                         Note = "Wymiana sprzęgła",
-                        Owner = "Piotr Zieliński",
+                        OwnerId = 7,
                         StartDate = new DateOnly(2025, 2, 15),
                         EndDate = new DateOnly(2025, 2, 17)}
                 ]);
                 _context.SaveChanges();
-            }
+            }*/
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CarRepair>>> GetCars()
