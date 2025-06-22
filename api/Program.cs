@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using CarRepairApi.Models;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -15,20 +14,13 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<CarRepairContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<CarRepairContext>()
-    .AddDefaultTokenProviders();
-
-// Add Authentication
+// Add Authentication (if you still want JWT, otherwise remove this block)
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-
-// Add Jwt Bearer
 .AddJwtBearer(options =>
 {
     options.SaveToken = true;

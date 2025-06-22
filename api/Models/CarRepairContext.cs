@@ -14,7 +14,7 @@ namespace CarRepairApi.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<CarRepair>(entity =>
             {
-                entity.ToTable("CarRepair");
+                entity.ToTable("CarRepairs");
                 entity.Property(e => e.StartDate).HasColumnType("date");
                 entity.Property(e => e.EndDate).HasColumnType("date");
             });
