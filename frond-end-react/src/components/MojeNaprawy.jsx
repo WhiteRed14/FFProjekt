@@ -6,18 +6,24 @@ export default function MojeNaprawy() {
     <>
       <header>
         <div className="up-logo">
-          <h1 className="logo">Piękny <span>wóz</span></h1>
+          <h1 className="logo">
+            <Link to="/">Piękny <span>wóz</span></Link>
+          </h1>
           <nav>
             <ul className="up-menu">
               <li><Link to="/">Start</Link></li>
               <li><Link to="/moje-naprawy">Moje naprawy</Link></li>
               <li><Link to="/nowe-zlecenie">Nowa wizyta</Link></li>
-              <li><a href="blog.js">Blog</a></li>
             </ul>
           </nav>
         </div>
       </header>
-      {/* Tu dodaj dalszą logikę lub widok napraw */}
+      <section className="hero">
+        <div className="container">
+          <h2>Moje naprawy</h2>
+          {/* Tu dodaj dalszą logikę lub widok napraw */}
+        </div>
+      </section>
     </>
   );
 } 

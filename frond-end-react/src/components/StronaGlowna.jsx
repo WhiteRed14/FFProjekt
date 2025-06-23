@@ -14,7 +14,7 @@ export default function StronaGlowna() {
               <li><Link to="/">Start</Link></li>
               <li><Link to="/moje-naprawy">Moje naprawy</Link></li>
               <li><Link to="/nowe-zlecenie">Nowa wizyta</Link></li>
-              <li><a href="aa.html">Profil</a></li>
+
             </ul>
           </nav>
         </div>

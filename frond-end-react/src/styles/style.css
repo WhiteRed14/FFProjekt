@@ -10,15 +10,46 @@ body {
   line-height: 1.6;
   background: #f9fafb;
   min-height: 100vh;
+  border: none;
+}
+
+html, body {
+  height: auto;
+  min-height: 100vh;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.container.services-grid {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+
+.services,
+.footer-wrapper,
+.up-logo {
+  width: auto;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .up-logo {
-  width: min(90%, 1100px);
-  margin-inline: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
 }
 header {
   background: #fff;
@@ -27,10 +58,9 @@ header {
   top: 0;
   z-index: 100;
   text-decoration: none;
+  width: 100%;
 }
-.nav-wrapper {
-  
-}
+
 .logo {
   margin: 0;
   text-decoration: none;   
@@ -63,17 +93,27 @@ header {
 .hero {
   color: #fff;
   text-align: center;
-  padding: 2rem 0 2rem;
+  padding: 4rem 0 4rem 0;
   position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background: none;
 }
 .hero::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: black; /* niebieski overlay */
+  background: none; 
 }
 .hero .container {
-  position: relative; /* nad overlay */
+  width: 100vw;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  position: relative;
   z-index: 1;
 }
 .hero h2 {
@@ -100,11 +140,15 @@ header {
 /* ----------  Usługi  ---------- */
 .services {
   padding: 4rem 0 5rem;
+  margin: 0 auto;
 }
 .services-grid {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 .service-card {
   background: #fff;
@@ -112,6 +156,12 @@ header {
   border-radius: 6px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s;
+  width: 260px;
+  height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .service-card:hover {
   transform: translateY(-6px);
@@ -127,13 +177,20 @@ header {
 footer {
   background: pink;
   color: #fff;
-  padding: 1.5rem 0;
+  padding: 2rem 0;
+  /* width: 100vw; */
+  /* position: relative; */
+  /* left: 50%; */
+  /* margin-left: -50vw; */
 }
 .footer-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .footer-links {
   list-style: none;
@@ -173,4 +230,13 @@ a:focus,
 a:active {
   color: inherit;
   text-decoration: none;
+}
+
+.hero .container,
+.services .container,
+.footer-wrapper {
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
 }
