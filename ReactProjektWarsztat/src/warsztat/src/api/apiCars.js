@@ -2,19 +2,19 @@ export let cars = [];
 
 export async function getCars() {
   try {
-    const response = await fetch("/api/CarRepair");
+    const response = await fetch("http://localhost:5180/api/CarRepair");
     console.log("Response status:", response.status);
     console.log("Response headers:", response.headers);
-    
+
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Error response text:", errorText);
       throw new Error(`Błąd ${response.status}: ${errorText}`);
     }
-    
+
     const contentType = response.headers.get("content-type");
     console.log("Content-Type:", contentType);
-    
+
     if (contentType && contentType.includes("application/json")) {
       const data = await response.json();
       console.log("Parsed JSON data:", data);
@@ -22,7 +22,12 @@ export async function getCars() {
     } else {
       const textData = await response.text();
       console.log("Response text (not JSON):", textData);
-      throw new Error(`Serwer zwrócił dane w formacie: ${contentType}. Otrzymane dane: ${textData.substring(0, 200)}...`);
+      throw new Error(
+        `Serwer zwrócił dane w formacie: ${contentType}. Otrzymane dane: ${textData.substring(
+          0,
+          200
+        )}...`
+      );
     }
   } catch (error) {
     console.error("Błąd podczas pobierania aut:", error.message);
@@ -33,7 +38,7 @@ export async function getCars() {
 export async function removeFromCar(carId) {
   try {
     const response = await fetch(
-      `/api/CarRepair/${carId}`,
+      `http://localhost:5180/api/CarRepair/${carId}`,
       {
         method: "DELETE",
       }
@@ -60,7 +65,7 @@ export async function updateCar(carId, newCar) {
 
   try {
     const response = await fetch(
-      `/api/CarRepair/${carId}`,
+      `http://localhost:5180/api/CarRepair/${carId}`,
       {
         method: "PUT",
         headers: {
@@ -85,7 +90,7 @@ export async function updateCar(carId, newCar) {
 
 export async function addCar(newCar) {
   try {
-    const response = await fetch("/api/CarRepair", {
+    const response = await fetch("http://localhost:5180/api/CarRepair", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -103,32 +108,6 @@ export async function addCar(newCar) {
     return { status: "success", message: "Auto dodane poprawnie", data };
   } catch (error) {
     console.error("Błąd przy dodawaniu auta:", error.message);
-    return { status: "error", message: error.message };
-  }
-}
-
-export async function uploadFile(carId, file) {
-  const formData = new FormData();
-  formData.append("file", file);
-
-  try {
-    const response = await fetch(
-      `/api/CarRepair/upload/${carId}`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Błąd ${response.status}: ${errorText}`);
-    }
-
-    console.log("Plik przesłany poprawnie");
-    return { status: "success", message: "Plik przesłany poprawnie" };
-  } catch (error) {
-    console.error("Błąd przesyłania pliku:", error.message);
     return { status: "error", message: error.message };
   }
 }
