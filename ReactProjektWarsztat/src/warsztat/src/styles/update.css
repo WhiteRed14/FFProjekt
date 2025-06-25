@@ -1,0 +1,99 @@
+/* === WYŚRODKOWANY UPDATE FORM === */
+.update-form {
+  position: fixed;                   /* przyklejone do viewportu */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);  /* przesunięcie o ½ szer. i wys. */
+  
+  background-color: #ffffff;         /* jasne tło formularza */
+  color: #000;                       /* ciemny tekst */
+  padding: 22px 26px 16px 26px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 100;                      /* wyżej niż zwykłe treści */
+  min-width: 220px;
+  /* margin-top niepotrzebny po zmianie pozycjonowania */
+}
+
+/* strzałka nad formularzem */
+.update-form::before {
+  content: '';
+  position: absolute;
+  top: -12px;                        /* tuż nad ramką */
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-bottom-color: #ffffff;      /* taki sam jak tło formularza */
+}
+
+/* === RESZTA STYLI BEZ ZMIAN === */
+/* aktywny przycisk otwierający formularz */
+.update-button.active {
+  background-color: #24967a;
+  transform: translateY(2px);
+}
+
+/* etykiety pól */
+.update-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+/* pola tekstowe i daty */
+.update-form input[type="text"],
+.update-form input[type="date"] {
+  padding: 7px 10px;
+  margin-top: 3px;
+  border: 1px solid #bfc8e6;
+  border-radius: 5px;
+  font-size: 15px;
+  background: #fff;
+  color: #232946;
+  transition: border 0.2s;
+}
+.update-form input:focus {
+  border: 1.5px solid #3bba9c;
+  outline: none;
+  background: #f0f7f4;
+}
+
+/* przycisk Zapisz */
+.update-form button[type="submit"] {
+  background: #3bba9c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 18px;
+  font-size: 15px;
+  margin-right: 8px;
+  margin-top: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.update-form button[type="submit"]:hover {
+  background: #24967a;
+  transform: scale(1.04);
+}
+
+/* przycisk Anuluj */
+.update-form .cancel-update {
+  background: #e0e3ef;
+  color: #232946;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  font-size: 15px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.update-form .cancel-update:hover {
+  background: #bfc8e6;
+  color: #232946;
+}
+a:hover,
+a:focus,
+a:active {
+  color: inherit;
+  text-decoration: none;
+}
