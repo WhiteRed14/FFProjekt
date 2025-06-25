@@ -14,7 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<CarRepairContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add Authentication (if you still want JWT, otherwise remove this block)
+// Add Authentication
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

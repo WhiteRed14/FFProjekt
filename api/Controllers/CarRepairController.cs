@@ -53,14 +53,14 @@ namespace CarRepairApi.Controllers
                         Make = "VolksWagen",
                         Model = "Golf",
                         Note = "Wycinanie kata",
-                        OwnerId = 4 },
+                        OwnerId = 1 },
 
                     new CarRepair {
                         PlateNumber = "KR1234AB",
                         Make = "Toyota",
                         Model = "Corolla",
                         Note = "Wymiana oleju silnikowego i filtra",
-                        OwnerId = 5,
+                        OwnerId = 2,
                         StartDate = new DateOnly(2025, 3, 10),
                         EndDate = new DateOnly(2025, 3, 11)},
 
@@ -69,7 +69,7 @@ namespace CarRepairApi.Controllers
                         Make = "Audi",
                         Model = "A3",
                         Note = "Naprawa układu hamulcowego",
-                        OwnerId = 6,
+                        OwnerId = 3,
                         StartDate = new DateOnly(2025, 4, 2),
                         EndDate = new DateOnly(2025, 4, 4)},
 
@@ -78,7 +78,7 @@ namespace CarRepairApi.Controllers
                         Make = "Renault",
                         Model = "Megane",
                         Note = "Wymiana sprzęgła",
-                        OwnerId = 7,
+                        OwnerId = 4,
                         StartDate = new DateOnly(2025, 2, 15),
                         EndDate = new DateOnly(2025, 2, 17)}
                 ]);
