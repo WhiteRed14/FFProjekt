@@ -7,8 +7,8 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: "Poppins", Arial, sans-serif;
-  background: white;
-  color: #333;
+  background: black;
+  color: white;
   line-height: 1.6;
 }
 
@@ -20,8 +20,12 @@ html, body {
 
 main {
   flex: 1;
+  background-color: black;
 }
-
+main h2{
+  color: white;
+  margin-bottom: 2rem;
+}
 /* nagłówek */
 header {
   background: #fff;
@@ -183,6 +187,9 @@ footer {
 /* formularz nowej wizyty */
 .new-visit-container {
   padding: 2rem;
+}
+.new-visit-container h1{
+  color: white;
 }
 
 .add-car-form {

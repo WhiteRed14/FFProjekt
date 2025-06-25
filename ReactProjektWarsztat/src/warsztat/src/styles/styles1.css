@@ -12,7 +12,6 @@ body {
   color: #111;
   display: flex;
   justify-content: center;
-  padding: calc(var(--gap) * 2);
 }
 
 .card {

@@ -1,17 +1,9 @@
-import React, { useState, useEffect, useCallback, useContext, useMemo, useRef, useReducer, createContext } from 'react';
+import React, { useState, useEffect, useContext, useRef, createContext } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import './App.css';
+import './styles/App.css';
 
 const UserContext = createContext();
-const initialState = { count: 0 };
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'increment':
-      return { count: state.count + 1 };
-    default:
-      return state;
-  }
-};
+
 
 const useServices = () => {
   const [services, setServices] = useState([]);
@@ -71,7 +63,7 @@ function Home() {
         <div className="container">
           <h2>Witaj w serwisie Piękny wóz!</h2>
           <p>Zadbamy o Twoje auto – szybko, profesjonalnie<br />i z najlepszą jakością na rynku!</p>
-          <Link to="/new" className="btn-primary">Umów nową wizytę</Link>
+          <Link to="/klient/repairs" className="btn-primary">Umów nową wizytę</Link>
         </div>
       </section>
       <ServiceList services={services} />
