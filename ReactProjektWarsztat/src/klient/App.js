@@ -31,7 +31,6 @@ function Heading() {
           <ul className="up-menu">
             <li><Link to="/klient/">Start</Link></li>
             <li><Link to="/klient/repairs">Moje naprawy</Link></li>
-            <li><Link to="/klient/new">Nowa wizyta</Link></li>
             <li><Link to="/klient/profile">Mój profil</Link></li>
           </ul>
         </nav>
@@ -64,7 +63,6 @@ function Home() {
         <div className="container">
           <h2>Witaj w serwisie Piękny wóz!</h2>
           <p>Zadbamy o Twoje auto – szybko, profesjonalnie<br />i z najlepszą jakością na rynku!</p>
-          <Link to="/klient/repairs" className="btn-primary">Umów nową wizytę</Link>
         </div>
       </section>
       <ServiceList services={services} />

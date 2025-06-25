@@ -159,7 +159,6 @@ export default function MojeNaprawy() {
           </h1>
           <nav>
             <ul className="up-menu">
-              <li><Link to="/moje-naprawy">Naprawy</Link></li>
             </ul>
           </nav>
         </div>
