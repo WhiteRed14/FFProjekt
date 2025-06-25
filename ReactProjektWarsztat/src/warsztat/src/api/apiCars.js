@@ -1,8 +1,15 @@
 export let cars = [];
+let token = '';
+
 
 export async function getCars() {
   try {
-    const response = await fetch("http://localhost:5180/api/CarRepair");
+    token = localStorage.getItem("token");
+    const response = await fetch("http://localhost:5180/api/CarRepair",{
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
     console.log("Response status:", response.status);
     console.log("Response headers:", response.headers);
     
@@ -32,9 +39,13 @@ export async function getCars() {
 
 export async function removeFromCar(carId) {
   try {
+    token = localStorage.getItem("token");
     const response = await fetch(
       `http://localhost:5180/api/CarRepair/${carId}`,
       {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
         method: "DELETE",
       }
     );
@@ -59,12 +70,14 @@ export async function updateCar(carId, newCar) {
   newCar.id = carId;
 
   try {
+    token = localStorage.getItem("token");
     const response = await fetch(
       `http://localhost:5180/api/CarRepair/${carId}`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(newCar),
       }
@@ -85,10 +98,12 @@ export async function updateCar(carId, newCar) {
 
 export async function addCar(newCar) {
   try {
+    token = localStorage.getItem("token");
     const response = await fetch("http://localhost:5180/api/CarRepair", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify(newCar),
     });

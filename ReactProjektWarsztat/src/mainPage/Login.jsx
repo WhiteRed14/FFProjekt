@@ -25,7 +25,7 @@ export default function Login({ setUserType }) {
         throw new Error(errorText || "Błąd logowania");
       }
       const data = await response.json();
-      localStorage.setItem("token", data.Token);
+      localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.role);
       setSuccess("Zalogowano pomyślnie!");
       console.log("Received role:", data.role);
