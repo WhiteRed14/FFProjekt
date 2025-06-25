@@ -2,9 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CarRepairApi.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace CarRepairApi.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CarRepairController : ControllerBase
@@ -136,6 +140,24 @@ namespace CarRepairApi.Controllers
             _context.CarRepairs.Remove(CarRepair);
             await _context.SaveChangesAsync();
             return NoContent();
+        }
+
+        [HttpGet("my")]
+        public async Task<ActionResult<IEnumerable<CarRepair>>> GetMyCarRepairs()
+        {
+            var userIdClaim = User.FindFirst(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub)?.Value
+                            ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userIdClaim == null)
+                return Unauthorized();
+
+            if (!int.TryParse(userIdClaim, out int userId))
+                return Unauthorized();
+
+            var myRepairs = await _context.CarRepairs
+                .Where(r => r.OwnerId == userId)
+                .ToListAsync();
+
+            return Ok(myRepairs);
         }
 
         private async Task<bool> CarRepairExists(int id)
