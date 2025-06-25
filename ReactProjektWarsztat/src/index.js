@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import App from './mainPage/App';
 import './warsztat/src/styles/main.css';
 import './warsztat/src/styles/style.css';
 import './warsztat/src/styles/styles1.css';
