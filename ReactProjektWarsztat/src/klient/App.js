@@ -4,6 +4,7 @@ import './styles/App.css';
 
 const UserContext = createContext();
 
+let token = '';
 
 const useServices = () => {
   const [services, setServices] = useState([]);
@@ -91,7 +92,67 @@ function Profile() {
 }
 
 function Repairs() {
-  return <h2>Lista Twoich napraw</h2>;
+  const [repairs, setRepairs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRepairs = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        token = localStorage.getItem("token");
+        const response = await fetch('http://localhost:5180/api/CarRepair/my', {
+          headers: {
+            'Authorization': `Bearer ${token}`, // TODO: Replace with real token
+          },
+        });
+        if (!response.ok) throw new Error('Błąd pobierania napraw');
+        const data = await response.json();
+        //console.log(data);
+        setRepairs(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRepairs();
+  }, []);
+
+  if (loading) return <div>Ładowanie napraw...</div>;
+  if (error) return <div>Błąd: {error}</div>;
+  if (repairs.length === 0) return <div>Brak napraw do wyświetlenia.</div>;
+
+  return (
+    <div className="repairs-list-container">
+      <h2>Lista Twoich napraw</h2>
+      <table className="repairs-table">
+        <thead>
+          <tr>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Numer rejestracyjny</th>
+            <th>Notatka</th>
+            <th>Data rozpoczęcia</th>
+            <th>Data zakończenia</th>
+          </tr>
+        </thead>
+        <tbody>
+          {repairs.map((r) => (
+            <tr key={r.id}>
+              <td>{r.make}</td>
+              <td>{r.model}</td>
+              <td>{r.plateNumber}</td>
+              <td>{r.note}</td>
+              <td>{r.startDate || '-'}</td>
+              <td>{r.endDate || '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 function NewVisit() {
