@@ -1,10 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo, useReducer } from "react";
 import { Link } from "react-router-dom";
 import { getCars, addCar, removeFromCar, updateCar } from "../api/apiCars";
 
 export default function MojeNaprawy() {
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
+  const formReducer = (state, action) => {
+    switch (action.type) {
+      case "SET_FIELD":
+        return { ...state, [action.field]: action.value };
+      case "RESET":
+        return { Make: "", Model: "", PlateNumber: "", OwnerId: "", Note: "", StartDate: "", EndDate: "" };
+      default:
+        return state;
+    }
+  };
+  const [formData, dispatchForm] = useReducer(formReducer, {
     Make: "",
     Model: "",
     PlateNumber: "",
@@ -27,6 +37,14 @@ export default function MojeNaprawy() {
     StartDate: "",
     EndDate: ""
   });
+  const [filterActive, setFilterActive] = useState(true);
+
+  const displayedCars = useMemo(() => {
+    if (filterActive) {
+      return cars.filter(car => !car.endDate);
+    }
+    return cars;
+  }, [cars, filterActive]);
 
   async function fetchCars() {
     setLoading(true);
@@ -45,10 +63,10 @@ export default function MojeNaprawy() {
   }, []);
 
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    dispatchForm({ type: "SET_FIELD", field: e.target.name, value: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     setError(null);
     setSuccess(null);
@@ -66,7 +84,7 @@ export default function MojeNaprawy() {
       if (result.status === "success") {
         setSuccess("Auto dodane poprawnie!");
         setShowForm(false);
-        setFormData({ Make: "", Model: "", PlateNumber: "", OwnerId: "", Note: "", StartDate: "", EndDate: "" });
+        dispatchForm({ type: "RESET" });
         fetchCars();
       } else {
         setError(result.message || "Błąd przy dodawaniu auta");
@@ -74,7 +92,7 @@ export default function MojeNaprawy() {
     } catch (err) {
       setError("Błąd przy dodawaniu auta");
     }
-  };
+  }, [formData, addCar, fetchCars]);
 
   const handleDelete = async (carId) => {
     setError(null);
@@ -152,11 +170,11 @@ export default function MojeNaprawy() {
             <p>Ładowanie samochodów...</p>
           ) : error ? (
             <p style={{ color: 'red' }}>{error}</p>
-          ) : cars.length === 0 ? (
+          ) : displayedCars.length === 0 ? (
             <p>Brak samochodów do wyświetlenia.</p>
           ) : (
             <div className="cars-container">
-              {cars.map(car => (
+              {displayedCars.map(car => (
                 <div className="car-details" key={car.id}>
                   <div className="car-info">
                     <strong>{car.make} {car.model}</strong><br />
@@ -177,7 +195,15 @@ export default function MojeNaprawy() {
           )}
         </div>
       </section>
-      <button className="add-car-button" onClick={() => setShowForm(v => !v)}>+</button>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', position: 'relative', marginLeft: '2rem', marginTop: '1rem' }}>
+        <button
+          onClick={() => setFilterActive(f => !f)}
+          style={{ marginBottom: '1rem', padding: '0.5rem 1.5rem', minWidth: '120px', minHeight: '40px', fontSize: '1.1rem', width: 'auto', height: 'auto', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
+          {filterActive ? <span title="Pokaż wszystkie auta">Filtr</span> : <span title="Pokaż tylko auta bez daty zakończenia">Wszystkie</span>}
+        </button>
+        <button className="add-car-button" onClick={() => setShowForm(v => !v)}>+</button>
+      </div>
       {showForm && (
         <div className="add-car">
           <form className="add-car-form" onSubmit={handleSubmit}>
